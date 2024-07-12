@@ -2,7 +2,6 @@ import os
 import datetime
 import tkinter as tk
 from tkinter import ttk
-import tkinter.font as tkFont
 
 
 def center_screen(width, height):
@@ -25,7 +24,7 @@ def calculate_chars_per_line(window_width, font):
 
 
 TITLE_SOFTWARE = "Ứng dụng chấm điểm thi trắc nghiệm"
-TITLE_NOTE_WINDOW = "Lưu ý"
+TITLE_WINDOW_NOTE = "Lưu ý"
 
 TEXT_MORNING = "Chào buổi sáng!"
 TEXT_AFTERNOON = "Chào buổi chiều!"
@@ -36,13 +35,13 @@ TEXT_ACCEPT = "CHẤP NHẬN"
 TEXT_INPUT_TEACHER = "CHỌN SỐ LƯỢNG BÀI CỦA GIÁO VIÊN"
 TEXT_INPUT_STUDENT = "CHỌN SỐ LƯỢNG BÀI CỦA SINH VIÊN"
 
-WIDTH_FIRST_WINDOW = 1280
-WIDTH_NOTE_WINDOW = 500
-HEIGHT_FIRST_WINDOW = 720
-HEIGHT_NOTE_WINDOW = 300
-GEOMETRY_FIRST_WINDOW = center_screen(WIDTH_FIRST_WINDOW, HEIGHT_FIRST_WINDOW)
-GEOMETRY_NOTE_WINDOW = center_screen(WIDTH_NOTE_WINDOW, HEIGHT_NOTE_WINDOW)
-THE_WINDOW_SECOND = f"{WIDTH_FIRST_WINDOW}x{WIDTH_NOTE_WINDOW}"
+WIDTH_WINDOW_FIRST = 1280
+WIDTH_WINDOW_NOTE = 500
+HEIGHT_WINDOW_FIRST = 720
+HEIGHT_WINDOW_NOTE = 300
+GEOMETRY_WINDOW_FIRST = center_screen(WIDTH_WINDOW_FIRST, HEIGHT_WINDOW_FIRST)
+GEOMETRY_WINDOW_NOTE = center_screen(WIDTH_WINDOW_NOTE, HEIGHT_WINDOW_NOTE)
+THE_WINDOW_SECOND = f"{WIDTH_WINDOW_FIRST}x{WIDTH_WINDOW_NOTE}"
 COLOR_BACKGROUND = "light blue"
 
 PATH_PROJET = os.getcwd()
@@ -58,36 +57,56 @@ TIME_MORNING_END = datetime.time(12, 0)
 TIME_AFTERNOON_START = TIME_MORNING_END
 TIME_AFTERNOON_END = datetime.time(18, 0)
 
-FONT_TEXT_GREETING = tkFont.Font(
-    family="Time New Roman",
-    size=16,
-    slant="italic")
-FONT_NOTE = tkFont.Font(
-    family="Arial",
-    size=12,
-    weight="bold")
-FONT_DOCUMENT = tkFont.Font(
-    family="Time New Roman",
-    size=10)
-FONT_SOFTWARE_NAME = tkFont.Font(
-    family="Time New Roman",
-    size=24,
-    slant="italic",
-    weight="bold")
+FONT_TEXT_GREETING = ("Time New Roman", 16, "italic")
+FONT_NOTE = ("Arial", 16)
+FONT_DOCUMENT = ("Time New Roman", 30)
+FONT_SOFTWARE_NAME_SECOND = ("Arial", 26, "bold")
+
+def my_style():
+    style = ttk.Style()
+    style.configure(
+        'TButton',
+        background=COLOR_BACKGROUND,
+        font=FONT_NOTE,
+    )
 
 
-# style = ttk.Style()
-# style.configure(
-#     'TButton',
-#     background=COLOR_BACKGROUND,
-#     font=FONT_NOTE,
-# )
-style = ttk.Style()
-style.theme_use('clam') 
-style.configure(
-    'My.TButton',
-    background='',
-    relief='flat',
-    font=FONT_NOTE,
-)
-style.map('My.TButton', background=[('active', 'lightgray')])
+
+# # def font_style():
+# #     root =tk.Tk()
+# #     FONT_TEXT_GREETING = tkFont.Font(
+# #         root,
+# #         family="Time New Roman",
+# #         size=16,
+# #         slant="italic")
+# #     FONT_NOTE = tkFont.Font(
+# #         root,
+# #         family="Arial",
+# #         size=12)
+# #     FONT_DOCUMENT = tkFont.Font(
+# #         root,
+# #         family="Time New Roman",
+# #         size=10)
+# #     FONT_SOFTWARE_NAME = tkFont.Font(
+# #         root,
+# #         family="Time New Roman",
+# #         size=24,
+# #         slant="italic",
+# #         weight="bold")
+# #     FONT_SOFTWARE_NAME_SECOND = tkFont.Font(
+# #         root,
+# #         family="Arial",
+# #         size=26,
+# #         weight="bold"
+# #     )
+# #     return FONT_TEXT_GREETING,FONT_NOTE,FONT_DOCUMENT,FONT_SOFTWARE_NAME,FONT_SOFTWARE_NAME_SECOND
+
+# # style = ttk.Style()
+# # style.theme_use('clam')
+# # style.configure(
+# #     'My.TButton',
+# #     background='',
+# #     relief='flat',
+# #     font=FONT_NOTE,
+# # )
+# # style.map('My.TButton', background=[('active', 'lightgray')])

@@ -5,17 +5,18 @@ from tkinter import filedialog
 
 
 class Window():
-    def __init__(self, root, title, geometry):
-        self.root = root
+    def __init__(self, title, geometry):
+        self.root = tk.Tk()
         self.root.title(title)
         self.root.geometry(geometry)
         self.root.configure(bg=COLOR_BACKGROUND)
         self.root.iconbitmap(PATH_ICON)
+        my_style()
 
     def run(self):
         self.root.mainloop()
 
-    def create_frame(self, row, column):
+    def add_frame(self, row, column):
         frame = My_Frame(
             master=self.root
         )
@@ -68,24 +69,22 @@ class My_TButton(ttk.Button):
 #         super().__init__(self, *arg, **kwargs)
 
 
-class My_OptionMenu(ttk.OptionMenu):
-    def __init__(self, master, default, values, command=None, **kwargs):
-        self.var = tk.StringVar(master, default)
-        super().__init__(master, self.var, *values, command=command, **kwargs)
+# class My_OptionMenu(ttk.OptionMenu):
+#     def __init__(self, master, default, values, command=None, **kwargs):
+#         self.var = tk.StringVar(master, default)
+#         super().__init__(master, self.var, *values, command=command, **kwargs)
 
 
-class My_Combobox(ttk.Combobox):
-    def __init__(self, master=None, values=[], **kw):
-        self.var = tk.StringVar(master)
-        super().__init__(master, values=values, **kw)
-        self.width = 8
-        self.values = values
-        self.configure(values=self.values)
-        self.bind("<KeyRelease>", self.check_value)
+# class My_Combobox(ttk.Combobox):
+#     def __init__(self, master=None, values=[], **kw):
+#         self.var = tk.StringVar(master)
+#         super().__init__(master, values=values, **kw)
+#         self.width = 8
+#         self.values = values
+#         self.configure(values=self.values)
+#         self.bind("<KeyRelease>", self.check_value)
 
-    def check_value(self, event):
-        current_value = self.get()
-        if current_value not in self.values:
-            self.set(self.values[0])
-
-
+#     def check_value(self, event):
+#         current_value = self.get()
+#         if current_value not in self.values:
+#             self.set(self.values[0])
