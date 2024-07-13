@@ -12,6 +12,8 @@ class Window():
         self.root.configure(bg=COLOR_BACKGROUND)
         self.root.iconbitmap(PATH_ICON)
         my_style()
+        font_style()
+        style_gray()
 
     def run(self):
         self.root.mainloop()

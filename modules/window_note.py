@@ -14,7 +14,7 @@ class Window_Note():
     def add_label_note(self):
         note = My_Label(
             master=self.window_note,
-            font=FONT_DOCUMENT,
+            font=font_style()[2],
             text=TEXT_TITILE_NOTED
         )
         note.grid(row=0, column=0)

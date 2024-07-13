@@ -9,13 +9,19 @@ class Window_Second():
             geometry=GEOMETRY_WINDOW_FIRST
         )
         self.frame_r0_c0 = self.window_second.add_frame(row=0, column=0)
-        self.frame_r0_c0.config(padx=15, pady=15)
+        self.frame_r0_c0.config(padx=15, pady=40)
         self.frame_r1_c0 = self.window_second.add_frame(row=1, column=0)
         self.frame_r2_c0 = self.window_second.add_frame(row=2, column=0)
         self.add_label_title()
-        # self.accept_button()
-        # self.button_select_student_ans()
-        # self.button_select_teacher_ans()
+        self.add_label_select(text=TEXT_INPUT_TEACHER, row=0)
+        self.add_label_select(text=TEXT_INPUT_STUDENT, row=3)
+        self.add_button_select(
+            row=2,
+            command=lambda: self.add_label_verify(row=1))
+        self.add_button_select(
+            row=5,
+            command=lambda: self.add_label_verify(row=4))
+        self.add_button_accept()
         self.window_second.run()
 
     def add_label_title(self):
@@ -26,83 +32,45 @@ class Window_Second():
             master=self.frame_r0_c0,
             image=printer,
             text=" " + TITLE_SOFTWARE,
-            font=FONT_SOFTWARE_NAME_SECOND,
+            font=font_style()[4],
             compound='left',
             width=WIDTH_WINDOW_FIRST,
         )
         label_title.grid(row=0, column=0, sticky="w")
 
-    # def button_select_teacher_ans(self):
-    #     style = ttk.Style()
-    #     style.theme_use('clam')
-    #     style.configure(
-    #         'My.TButton',
-    #         background='',
-    #         relief='flat',
-    #         font=FONT_NOTE,
-    #     )
-    #     style.map('My.TButton', background=[('active', 'lightgray')])
-    #     button_select = My_TButton(
-    #         master=self.frame_r1_c0,
-    #         text='Chọn Thư Mục',
-    #         style='My.TButton',
-    #         command=self.create_label_and_select_folder_teacher
-    #     )
-    #     button_select.grid(row=1, column=0, sticky='w', padx=100)
+    def add_label_select(self, text, row):
+        label_select = My_Label(
+            master=self.frame_r1_c0,
+            font=font_style()[5],
+            text=text
+        )
+        label_select.grid(row=row, column=0, sticky='w', padx=100)
 
-    # def button_select_student_ans(self):
-    #     style = ttk.Style()
-    #     style.theme_use('clam')
-    #     style.configure(
-    #         'My.TButton',
-    #         background='',
-    #         relief='flat',
-    #         font=FONT_NOTE,
-    #     )
-    #     button_select = My_TButton(
-    #         master=self.frame_r1_c0,
-    #         text='Chọn Thư Mục',
-    #         style='My.TButton',
-    #         command=self.create_label_and_select_folder_student
-    #     )
-    #     button_select.grid(row=1, column=1, sticky='w', padx=450)
+    def add_button_select(self, row, command):
+        button_select = My_TButton(
+            master=self.frame_r1_c0,
+            text=TEXT_SELECT_FOLDER,
+            style=style_gray(),
+            command=command
+        )
+        button_select.grid(row=row, column=0, sticky='w', padx=100, pady=10)
 
+    def add_label_verify(self, row):
+        if not hasattr(self, 'label'):
+            label_verify = My_Label(
+                master=self.frame_r1_c0,
+                text='Chưa có thư mục được chọn!',
+                font=font_style()[6]
+            )
+            label_verify.grid(row=row, column=0, sticky='w', padx=100)
+        folder_selected = filedialog.askdirectory()
+        if folder_selected:
+            label_verify.config(text=f"Thư Mục Đã chọn: {folder_selected}")
 
-    # def accept_button(self):
-    #     style = ttk.Style()
-    #     style.theme_use('clam')
-    #     style.configure(
-    #         'My.TButton',
-    #         background='',
-    #         relief='flat',
-    #         font=FONT_NOTE,
-    #     )
-    #     style.map('My.TButton', background=[('active', 'lightgray')])
-    #     accept_button = My_TButton(
-    #         master=self.frame_r3_c0,
-    #         style='My.TButton',
-    #         text=TEXT_ACCEPT
-    #     )
-    #     accept_button.grid(row=0, column=0, sticky="w", padx=400, pady=20)
-
-    # def create_label_and_select_folder_student(self):
-    #     if not hasattr(self, 'label'):
-    #         label = My_Label(
-    #             master=self.frame_r1_c0,
-    #             text='Chưa có thư mục được chọn!'
-    #         )
-    #         label.grid(row=0, column=1, sticky='w', padx=450)
-    #     folder_selected = filedialog.askdirectory()
-    #     if folder_selected:
-    #         label.config(text=f"Thư Mục Đã chọn: {folder_selected}")
-
-    # def create_label_and_select_folder_teacher(self):
-    #     if not hasattr(self, 'label'):
-    #         label = My_Label(
-    #             master=self.frame_r1_c0,
-    #             text='Chưa có thư mục được chọn!'
-    #         )
-    #         label.grid(row=0, column=0, sticky='w',padx=100)
-    #     folder_selected = filedialog.askdirectory()
-    #     if folder_selected:
-    #         label.config(text=f"Thư Mục Đã chọn: {folder_selected}")
+    def add_button_accept(self):
+        button_accept = My_TButton(
+            master=self.frame_r2_c0,
+            style=style_gray(),
+            text=TEXT_ACCEPT
+        )
+        button_accept.grid(row=0, column=0, sticky="w", padx=250, pady=20)

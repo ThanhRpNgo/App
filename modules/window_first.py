@@ -24,7 +24,7 @@ class Window_First():
     def add_label_greeting(self):
         label_greeting = My_Label(
             master=self.frame_r0_c0,
-            font=FONT_TEXT_GREETING,
+            font=font_style()[1],
             compound='left'
         )
 
@@ -56,6 +56,7 @@ class Window_First():
         button_note = My_TButton(
             master=self.frame_r0_c0,
             text=TEXT_NOTE,
+            style=my_style(),
             command=lambda: self.open_window_note()
         )
         button_note.grid(row=0, column=1, padx=850)
@@ -66,19 +67,13 @@ class Window_First():
         self.button_note.config(state='disabled')
 
     def add_label_name(self):
-        FONT_SOFTWARE_NAME = tkFont.Font(
-            family="Time New Roman",
-            size=24,
-            slant="italic",
-            weight="bold")
-        
         name = My_Label(
             master=self.frame_r1_c0,
             text=TITLE_SOFTWARE,
-            font=FONT_SOFTWARE_NAME,
+            font=font_style()[0],
             width=calculate_chars_per_line(
                 WIDTH_WINDOW_FIRST,
-                FONT_SOFTWARE_NAME),
+                font_style()[0]),
             height=2)
         name.grid(row=0, column=0, sticky="w")
 
