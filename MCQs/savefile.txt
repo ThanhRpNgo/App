@@ -1,0 +1,97 @@
+import OMR_checker as student
+import OMR_CheckTest as teacher
+import numpy as np
+import template_excel as template
+import os
+import Src.compare_lists as compare
+import pandas as pd
+
+input_folder_student = "Input_Student"
+input_folder_teacher = "Input_Teacher"
+
+files_student = os.listdir(input_folder_student)
+files_teacher = os.listdir(input_folder_teacher)
+
+
+# Xử lý hình ảnh từ thư mục giáo viên
+for file_teacher in files_teacher:
+    file_path_teacher = os.path.join(input_folder_teacher, file_teacher)
+    
+    # Thực hiện xử lý hình ảnh giáo viên
+    result_teacher = teacher.image_process_teacher(file_path_teacher)
+    
+    # Kiểm tra kết quả xử lý
+    if result_teacher is not None:
+        # Trích xuất dữ liệu từ kết quả xử lý
+        enrollment_teacher, answer_sheet_teacher, total_answers = result_teacher
+        
+        # Thực hiện lưu dữ liệu vào file Excel
+        
+        df_teacher = template.save_to_excel_teacher(enrollment_teacher, answer_sheet_teacher, total_answers)
+# Gọi hàm lưu dữ liệu sinh viên
+for file_student in files_student:
+    file_path_student = os.path.join(input_folder_student, file_student)
+    
+    # Thực hiện xử lý hình ảnh sinh viên
+    result_student = student.img_process_student(file_path_student)
+    
+    # Kiểm tra kết quả xử lý
+    if result_student is not None:
+        # Trích xuất dữ liệu từ kết quả xử lý
+        ID_student, enrollment_student, answer_sheet_student, total_answers = result_student
+        if np.array_equal(enrollment_student, enrollment_teacher):
+            correct_ans = compare.compare_list_enrollment_answer(answer_sheet_student, answer_sheet_teacher)
+            break
+        else:
+            correct_ans = '0'
+        # Thực hiện lưu dữ liệu vào file Excel
+        template_student = template.excel_template_student(ID_student,enrollment_student,total_answers,correct_ans)
+        df_student = template.save_to_excel_student(ID_student, enrollment_student, answer_sheet_student, total_answers,correct_ans)
+
+# Tạo một đối tượng ExcelWriter
+with pd.ExcelWriter('output.xlsx') as writer:
+    # Ghi DataFrame của sinh viên vào tệp Excel
+    df_student.to_excel(writer, sheet_name='Data_Of_Student', index=False)
+    # Ghi DataFrame của giáo viên vào tệp Excel, bắt đầu từ dòng ngay sau DataFrame của sinh viên
+    df_teacher.to_excel(writer, sheet_name='Data_Of_Teacher', index=False)
+#for file_teacher in files_teacher:
+#    file_path_teacher = os.path.join(input_folder_teacher, file_teacher)
+#    enrollment_teacher, answer_sheet_teacher, total_answers = teacher.image_process_teacher(file_path_teacher)
+#    
+#    Dap_an_list = [] 
+#    for i, x in enumerate(answer_sheet_teacher):
+#        Dap_an_giao_vien = 'Cau' + ' ' + str(i+1) + ':' + ' ' + x 
+#        Dap_an_list.append(Dap_an_giao_vien)
+#    
+#    export_data_teacher = template.save_to_excel_teacher(enrollment_teacher, Dap_an_list, total_answers)##
+
+## Iterate over each student file
+#for file_student in files_student:
+#    file_path_student = os.path.join(input_folder_student, file_student)
+#    
+#    # Process the student file
+#    result_student = student.img_process_student(file_path_student)
+#    if result_student is not None:
+#        ID_student, enrollment_student, answer_sheet_student, total_answers = result_student
+#        Dap_an_list = [] 
+#        for i, x in enumerate(answer_sheet_student):
+#            Dap_an_hoc_sinh = 'Cau' + ' ' + str(i+1) + ':' + ' ' + x 
+#            Dap_an_list.append(Dap_an_hoc_sinh)#
+
+#        # Check if there are matching enrollments
+#            for file_teacher in files_teacher:
+#                file_path_teacher = os.path.join(input_folder_teacher, file_teacher)
+#                enrollment_teacher, answer_sheet_teacher, total_answers = teacher.image_process_teacher(file_path_teacher)
+#    
+#                if np.array_equal(enrollment_student, enrollment_teacher):
+#                    compare_between_student_teacher = compare.compare_list_enrollment_answer(answer_sheet_student, answer_sheet_teacher)
+#                    break
+#                else:
+#                    compare_between_student_teacher = '0'
+#    
+#                # Export student data
+#                export_data_student = template.save_to_excel_student(ID_student, enrollment_student, Dap_an_list, total_answers, compare_between_student_teacher)
+    #    print("Đã Lưu Giá trị của sinh viên ID: ",ID_student )
+    #else:
+    #    print("Không tìm thấy đủ giá trị",file_path_student)
+

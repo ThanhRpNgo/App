@@ -8,8 +8,9 @@ from modules.window_second import Window_Second
 class Window_First():
     def __init__(self):
         self.window_first = Window(
-            title=TITLE_SOFTWARE,
-            geometry=GEOMETRY_WINDOW_FIRST
+            height=WIDTH_WINDOW_FIRST,
+            width=HEIGHT_WINDOW_FIRST,
+            title=TITLE_SOFTWARE
         )
         self.frame_r0_c0 = self.window_first.add_frame(row=0, column=0)
         self.frame_r0_c0.config(padx=15, pady=15)

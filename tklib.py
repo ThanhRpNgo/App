@@ -5,15 +5,17 @@ from tkinter import filedialog
 
 
 class Window():
-    def __init__(self, title, geometry):
+    def __init__(self, title, width,height):
         self.root = tk.Tk()
         self.root.title(title)
-        self.root.geometry(geometry)
+        self.root.geometry(center_screen(height,width))
         self.root.configure(bg=COLOR_BACKGROUND)
         self.root.iconbitmap(PATH_ICON)
         my_style()
         font_style()
         style_gray()
+
+        
 
     def run(self):
         self.root.mainloop()
@@ -47,9 +49,10 @@ class My_Text(tk.Text):
 
 
 class My_Toplevel(tk.Toplevel):
-    def __init__(self, *args, **kwargs):
-        tk.Toplevel.__init__(self, *args, **kwargs)
+    def __init__(self,height,width, *args, **kwargs):
+        tk.Toplevel.__init__(self,*args, **kwargs)
         self['bg'] = COLOR_BACKGROUND
+        self.geometry(center_screen(height,width))
 
 
 class My_Button(tk.Button):

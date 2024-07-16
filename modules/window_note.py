@@ -3,11 +3,10 @@ from parameter import *
 
 
 class Window_Note():
-    def __init__(self, button_note):
+    def __init__(self, button_note,height=WIDTH_WINDOW_NOTE,width=HEIGHT_WINDOW_NOTE):
         self.button_note = button_note
-        self.window_note = My_Toplevel()
+        self.window_note = My_Toplevel(height=height,width=width)
         self.window_note.title(TITLE_WINDOW_NOTE)
-        self.window_note.geometry(GEOMETRY_WINDOW_NOTE)
         self.add_label_note()
         self.close_window()
 
