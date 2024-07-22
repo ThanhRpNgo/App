@@ -17,6 +17,7 @@ class Window_Waiting():
         label = My_Label(
             self.window_watiting,
             text=message,
+            wraplength=460,
             font=("Arial", 16)
         )
 

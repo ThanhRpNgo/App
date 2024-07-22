@@ -92,14 +92,17 @@ class Window_Second():
             messagebox.showwarning(
                 TITLE_MESSAGEBOX_WARNING,
                 TEXT_WARNING_CASE_1)
+            self.button_accept.config(state="normal")
         elif string_path_teacher == "":
             messagebox.showwarning(
                 TITLE_MESSAGEBOX_WARNING,
                 TEXT_WARNING_CASE_2)
+            self.button_accept.config(state="normal")
         elif string_path_student == "":
             messagebox.showwarning(
                 TITLE_MESSAGEBOX_WARNING,
                 TEXT_WARNING_CASE_3)
+            self.button_accept.config(state="normal")
         else:
             window_waiting = Window_Waiting(self.button_accept)
             MCQs_system(

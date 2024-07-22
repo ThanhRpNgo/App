@@ -23,6 +23,13 @@ def calculate_chars_per_line(window_width, font):
     chars_per_line = int(window_width // average_char_width) - 1
     return chars_per_line
 
+PATH_PROJET = os.getcwd()
+PATH_FOLDER_IMG = PATH_PROJET + "\\img"
+PATH_ICON = PATH_FOLDER_IMG + "\\grade.ico"
+PATH_IMG_MORNING = PATH_FOLDER_IMG + "\\morning.png"
+PATH_IMG_AFTERNOON = PATH_FOLDER_IMG + "\\afternoon.png"
+PATH_IMG_EVENING = PATH_FOLDER_IMG + "\\evening.png"
+PATH_IMG_PRINTER = PATH_FOLDER_IMG + "\\pngwing.com.png"
 
 TITLE_SOFTWARE = "Ứng dụng chấm điểm thi trắc nghiệm"
 TITLE_WINDOW_NOTE = "Lưu ý"
@@ -43,8 +50,8 @@ TEXT_WARNING_CASE_2 = "Chưa chọn folder giáo viên!"
 TEXT_WARNING_CASE_3 = "Chưa chọn folder sinh viên!"
 TEXT_WAITING_1 = "Đang xử lý bài giáo viên..."
 TEXT_WAITING_2 = "Đang xử lý bài học sinh..."
-TEXT_WAITING_3 = "Đang lưu..."
-TEXT_WAITING_4 = "Đã xong!"
+TEXT_WAITING_3 = "Đang xuất file excel..."
+TEXT_WAITING_4 = f"Đã lưu file output.xlsx tại {PATH_PROJET}!"
 
 WIDTH_WINDOW_FIRST = 1280
 WIDTH_WINDOW_NOTE = 500
@@ -54,14 +61,6 @@ GEOMETRY_WINDOW_FIRST = (WIDTH_WINDOW_FIRST, HEIGHT_WINDOW_FIRST)
 GEOMETRY_WINDOW_NOTE = (WIDTH_WINDOW_NOTE, HEIGHT_WINDOW_NOTE)
 THE_WINDOW_SECOND = f"{WIDTH_WINDOW_FIRST}x{WIDTH_WINDOW_NOTE}"
 COLOR_BACKGROUND = "light blue"
-
-PATH_PROJET = os.getcwd()
-PATH_FOLDER_IMG = PATH_PROJET + "\\img"
-PATH_ICON = PATH_FOLDER_IMG + "\\grade.ico"
-PATH_IMG_MORNING = PATH_FOLDER_IMG + "\\morning.png"
-PATH_IMG_AFTERNOON = PATH_FOLDER_IMG + "\\afternoon.png"
-PATH_IMG_EVENING = PATH_FOLDER_IMG + "\\evening.png"
-PATH_IMG_PRINTER = PATH_FOLDER_IMG + "\\pngwing.com.png"
 
 TIME_MORNING_START = datetime.time(5, 0)
 TIME_MORNING_END = datetime.time(12, 0)

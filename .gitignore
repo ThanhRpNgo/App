@@ -1,0 +1,7 @@
+exe/build
+exe/main.spec
+
+*__pycache__*
+*.pyc*
+
+test.py
