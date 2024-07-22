@@ -26,6 +26,8 @@ def calculate_chars_per_line(window_width, font):
 
 TITLE_SOFTWARE = "Ứng dụng chấm điểm thi trắc nghiệm"
 TITLE_WINDOW_NOTE = "Lưu ý"
+TITLE_WINDOW_WAITING = "Hệ thống đang xử lý..."
+TITLE_MESSAGEBOX_WARNING = "Cảnh báo!"
 
 TEXT_MORNING = "Chào buổi sáng!"
 TEXT_AFTERNOON = "Chào buổi chiều!"
@@ -36,6 +38,13 @@ TEXT_ACCEPT = "CHẤP NHẬN"
 TEXT_INPUT_TEACHER = "CHỌN FOLDER ANSWER-SHEET CỦA GIÁO VIÊN"
 TEXT_INPUT_STUDENT = "CHỌN FOLDER ANSWER-SHEET CỦA SINH VIÊN"
 TEXT_SELECT_FOLDER = "CHỌN THƯ MỤC"
+TEXT_WARNING_CASE_1 = "Chưa chọn folder giáo viên và sinh viên!"
+TEXT_WARNING_CASE_2 = "Chưa chọn folder giáo viên!"
+TEXT_WARNING_CASE_3 = "Chưa chọn folder sinh viên!"
+TEXT_WAITING_1 = "Đang xử lý bài giáo viên..."
+TEXT_WAITING_2 = "Đang xử lý bài học sinh..."
+TEXT_WAITING_3 = "Đang lưu..."
+TEXT_WAITING_4 = "Đã xong!"
 
 WIDTH_WINDOW_FIRST = 1280
 WIDTH_WINDOW_NOTE = 500

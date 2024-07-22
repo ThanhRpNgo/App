@@ -7,10 +7,16 @@ import os
 import pandas as pd
 import time
 import threading
+from parameter import TEXT_WAITING_1, TEXT_WAITING_2, TEXT_WAITING_3, TEXT_WAITING_4
 
 
 class MCQs_system():
-    def __init__(self, path_folder_teacher, path_folder_student):
+    def __init__(
+            self,
+            path_folder_teacher,
+            path_folder_student,
+            window_waiting):
+        self.window_waiting = window_waiting
         s = time.time()
         self.path_folder_teacher = path_folder_teacher
         self.path_folder_student = path_folder_student
@@ -19,13 +25,15 @@ class MCQs_system():
         self.all_result_teacher = []
         self.run()
         self.save_to_excel()
+        self.window_waiting.create_label(row=3, message=TEXT_WAITING_4)
         e = time.time()
-        print("time : ", e-s)
+        print("time : ", e - s)
 
     def run(self):
         files_teacher = os.listdir(self.path_folder_teacher)
         files_student = os.listdir(self.path_folder_student)
 
+        self.window_waiting.create_label(row=0, message=TEXT_WAITING_1)
         threads_teacher = []
         for file_teacher in files_teacher:
             thread_teacher = threading.Thread(
@@ -33,10 +41,11 @@ class MCQs_system():
                     file_teacher,))
             threads_teacher.append(thread_teacher)
             thread_teacher.start()
-        
+
         for thread in threads_teacher:
             thread.join()
 
+        self.window_waiting.create_label(row=1, message=TEXT_WAITING_2)
         threads_student = []
         for file_student in files_student:
             thread_student = threading.Thread(
@@ -48,6 +57,7 @@ class MCQs_system():
         for thread in threads_student:
             thread.join()
 
+        self.window_waiting.create_label(row=2, message=TEXT_WAITING_3)
         if self.dfs_teacher:
             self.df_teacher = pd.concat(self.dfs_teacher, ignore_index=True)
             print(self.df_teacher)
@@ -74,26 +84,30 @@ class MCQs_system():
                 f"xử lý ảnh của giáo vien **{file_teacher}** vì có lỗi xảy ra trong quá trình xử lý ảnh")
 
     def handle_file_student(self, file_student):
-        file_path_student = os.path.join(self.path_folder_student, file_student)
+        file_path_student = os.path.join(
+            self.path_folder_student, file_student)
         result_student = student.img_process_student(file_path_student)
-        
+
         if result_student is not None:
             ID_student, enrollment_student, answer_sheet_student = result_student
-            
+
             for result_teacher in self.all_result_teacher:
                 if result_teacher is not None:
                     enrollment_teacher, answer_sheet_teacher, total_answer_teacher = result_teacher
-                    
+
                     if np.array_equal(enrollment_student, enrollment_teacher):
-                        correct_ans = compare_list_enrollment_answer(answer_sheet_student, answer_sheet_teacher)
+                        correct_ans = compare_list_enrollment_answer(
+                            answer_sheet_student, answer_sheet_teacher)
                         break
                     else:
                         correct_ans = '0'
             grading = check_answers(total_answer_teacher, correct_ans)
-            df_student_temp = save_to_excel_student(ID_student, enrollment_student, answer_sheet_student, correct_ans,grading)
+            df_student_temp = save_to_excel_student(
+                ID_student, enrollment_student, answer_sheet_student, correct_ans, grading)
             self.dfs_student.append(df_student_temp)
         else:
-            print(f"Xử lý ảnh của **{file_student}** gặp lỗi, cần được xử lý và chỉnh lại")
+            print(
+                f"Xử lý ảnh của **{file_student}** gặp lỗi, cần được xử lý và chỉnh lại")
 
     def save_to_excel(self):
         with pd.ExcelWriter('output.xlsx') as writer:
@@ -107,3 +121,4 @@ class MCQs_system():
                 writer,
                 sheet_name='Data_Of_Student',
                 index=False)
+            

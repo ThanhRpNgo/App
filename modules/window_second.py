@@ -1,6 +1,8 @@
 from tklib import *
 from parameter import *
 from MCQs.system import MCQs_system
+from modules.window_waiting import Window_Waiting
+from tkinter import messagebox
 
 
 class Window_Second():
@@ -25,7 +27,7 @@ class Window_Second():
         self.add_button_select(
             row=5, command=lambda: self.add_label_verify(
                 row=4, var=self.path_folder_student))
-        self.add_button_accept()
+        self.button_accept = self.add_button_accept()
         self.window_second.run()
 
     def add_label_title(self):
@@ -77,7 +79,30 @@ class Window_Second():
             master=self.frame_r2_c0,
             style=style_gray(),
             text=TEXT_ACCEPT,
-            command=lambda: MCQs_system(
-                self.path_folder_teacher.get(),
-                self.path_folder_student.get()))
+            command=self.click_button_accept)
         button_accept.grid(row=0, column=0, sticky="w", padx=250, pady=20)
+        return button_accept
+
+    def click_button_accept(self):
+        self.button_accept.config(state="disabled")
+        string_path_teacher = self.path_folder_teacher.get()
+        string_path_student = self.path_folder_student.get()
+
+        if string_path_teacher == "" and string_path_student == "":
+            messagebox.showwarning(
+                TITLE_MESSAGEBOX_WARNING,
+                TEXT_WARNING_CASE_1)
+        elif string_path_teacher == "":
+            messagebox.showwarning(
+                TITLE_MESSAGEBOX_WARNING,
+                TEXT_WARNING_CASE_2)
+        elif string_path_student == "":
+            messagebox.showwarning(
+                TITLE_MESSAGEBOX_WARNING,
+                TEXT_WARNING_CASE_3)
+        else:
+            window_waiting = Window_Waiting(self.button_accept)
+            MCQs_system(
+                string_path_teacher,
+                string_path_student,
+                window_waiting)

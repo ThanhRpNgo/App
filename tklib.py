@@ -15,8 +15,6 @@ class Window():
         font_style()
         style_gray()
 
-        
-
     def run(self):
         self.root.mainloop()
 
@@ -52,7 +50,7 @@ class My_Toplevel(tk.Toplevel):
     def __init__(self,height,width, *args, **kwargs):
         tk.Toplevel.__init__(self,*args, **kwargs)
         self['bg'] = COLOR_BACKGROUND
-        self.geometry(center_screen(height,width))
+        self.geometry(center_screen(width,height))
 
 
 class My_Button(tk.Button):
